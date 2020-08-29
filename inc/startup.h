@@ -18,18 +18,18 @@
 * File:			startup.c
 * Author:		Shawn D'silva <https://www.shawndsilva.com>.
 * Version:		1.0.0.
-* Description:	startup header for the TM4C Launchpad board,defines the vector table
-    handlers and ISRS,also declares external variables
+* Description:	startup header for the TM4C Launchpad board,defines the vector
+table handlers and ISRS,also declares external variables
 */
 
 // +-----------------------------------------------------------------------------------+
-// +			        Type Definitions and Macros                                    +
+// +			        Type Definitions and Macros +
 // +-----------------------------------------------------------------------------------+
 
 /*
  * Defines a macro DEFAULT that aliases the function prototype
  * to Default_Handler if the function is not defined
-*/
+ */
 #define DEFAULT __attribute__((weak, alias("Default_Handler")))
 
 /* Defines a type for the ISR's in the vector table */
@@ -37,19 +37,18 @@ typedef void (*element_t)(void);
 
 /* Defines a type for the vector table */
 typedef union {
-    element_t isr;   //all ISRs use this type
-    void *stack_top; //pointer to top of the stack
+    element_t isr;   // all ISRs use this type
+    void *stack_top; // pointer to top of the stack
 } vector_table_t;
 
-
 // +-----------------------------------------------------------------------------------+
-// +			        Prototypes of Basic Exception Handlers                         +
+// +			        Prototypes of Basic Exception Handlers +
 // +-----------------------------------------------------------------------------------+
 
-//Default Handler,does nothing
+// Default Handler,does nothing
 void Default_Handler(void);
 
-//System Exception Handlers
+// System Exception Handlers
 
 void Reset_Handler(void);
 DEFAULT void NMI_Handler(void);
@@ -58,7 +57,7 @@ DEFAULT void DebugMonitor_Handler(void);
 DEFAULT void PendSV_Handler(void);
 DEFAULT void SysTick_Handler(void);
 
-//Fault Handlers
+// Fault Handlers
 
 DEFAULT void HardFault_Handler(void);
 DEFAULT void MemManageFault_Handler(void);
@@ -66,7 +65,7 @@ DEFAULT void BusFault_Handler(void);
 DEFAULT void UsageFault_Handler(void);
 
 // +-----------------------------------------------------------------------------------+
-// +                Prototypes of Interrupt Service Routines                           +
+// +                Prototypes of Interrupt Service Routines +
 // +-----------------------------------------------------------------------------------+
 DEFAULT void GPIOPortA_ISR(void);
 DEFAULT void GPIOPortB_ISR(void);
@@ -148,13 +147,14 @@ DEFAULT void PWM1Generator3_ISR(void);
 DEFAULT void PWM1Fault_ISR(void);
 
 // +-----------------------------------------------------------------------------------+
-// +					External Variables declaration					               +
+// +					External Variables declaration
+// +
 // +-----------------------------------------------------------------------------------+
 
-//main() of your program
+// main() of your program
 extern int main(void);
 
-//stack pointer
+// stack pointer
 extern int _stack_ptr;
 //.text/code,stored in Flash
 extern int _etext;
@@ -165,4 +165,5 @@ extern int _edata;
 extern int _bss;
 extern int _ebss;
 
-/***************************************** END OF FILE *******************************************/
+/***************************************** END OF FILE
+ * *******************************************/

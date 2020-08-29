@@ -1,4 +1,4 @@
-//GPIO Definitions
+// GPIO Definitions
 
 #define GPIO_PORTF_DATA_R       (*((volatile unsigned long *)0x400253FC))
 #define GPIO_PORTF_DIR_R        (*((volatile unsigned long *)0x40025400))
@@ -17,7 +17,7 @@
 #define GPIO_PORTF_DR2R_R       (*((volatile unsigned long *)0x40025500))
 #define GPIO_PORTF_DR4R_R       (*((volatile unsigned long *)0x40025504))
 #define GPIO_PORTF_DR8R_R       (*((volatile unsigned long *)0x40025508))
-#define GPIO_LOCK_KEY           0x4C4F434B  // Unlocks the GPIO_CR register
+#define GPIO_LOCK_KEY           0x4C4F434B // Unlocks the GPIO_CR register
 #define SYSCTL_RCGC2_R          (*((volatile unsigned long *)0x400FE108))
 
 void PortF_Init(void); // prototype call

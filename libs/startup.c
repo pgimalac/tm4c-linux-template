@@ -1,8 +1,8 @@
 /*
-* Copyright (c) 2018, Shawn D'silva <shawn@shawndsilva.com>
-* All rights reserved.
-*
-*  This file is free software: you can redistribute it and/or modify
+ * Copyright (c) 2018, Shawn D'silva <shawn@shawndsilva.com>
+ * All rights reserved.
+ *
+ *  This file is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -14,18 +14,18 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
-*
-* File:			startup.c
-* Author:		Shawn D'silva <https://www.shawndsilva.com>.
-* Version:		1.0.0.
-* Description:	startup file for the TM4C Launchpad board,defines the vector table,
-  and most importantly the Reset_Handler enabling the TM4C to execute the main program when the <RESET>
-  button is pressed on board
+ *
+ * File:			startup.c
+ * Author:		Shawn D'silva <https://www.shawndsilva.com>.
+ * Version:		1.0.0.
+ * Description:	startup file for the TM4C Launchpad board,defines the vector
+ table, and most importantly the Reset_Handler enabling the TM4C to execute the
+ main program when the <RESET> button is pressed on board
 */
 #include "startup.h"
 
 // +-----------------------------------------------------------------------------------+
-// +										            Vector Table                                       +
+// +										            Vector Table                   +
 // +-----------------------------------------------------------------------------------+
 
 __attribute__((section(".vector_table"))) //marks this vector table as a part of the section "".vector_table"
@@ -190,36 +190,30 @@ const vector_table_t vectors[] = {
 // +-----------------------------------------------------------------------------------+
 // +                Implementations of Interrupt Service Routines                      +
 // +-----------------------------------------------------------------------------------+
-void Reset_Handler(void)
-{
+void Reset_Handler(void) {
+    int *src, *dest;
 
-  int *src, *dest;
+    /* copying of the .data values into RAM */
 
-  /* copying of the .data values into RAM */
+    src = &_etext;
+    for (dest = &_data; dest < &_edata;) {
+        *dest++ = *src++;
+    }
 
-  src = &_etext;
-  for (dest = &_data; dest < &_edata;)
-  {
-    *dest++ = *src++;
-  }
+    /* initializing .bss values to zero*/
 
-  /* initializing .bss values to zero*/
+    for (dest = &_bss; dest < &_ebss;) {
+        *dest++ = 0;
+    }
 
-  for (dest = &_bss; dest < &_ebss;)
-  {
-    *dest++ = 0;
-  }
-
-  /* your program's main() called */
-  main();
+    /* your program's main() called */
+    main();
 }
 
-void Default_Handler(void)
-{
-  while (1)
-  {
-    //does literally nothing except infinitely loop
-  }
+void Default_Handler(void) {
+    while (1) {
+        // does literally nothing except infinitely loop
+    }
 }
 
 /*****************************************END OF FILE*********************************************/
