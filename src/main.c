@@ -2,6 +2,7 @@
 // Toggles the Red LED of TM4C Launchpad when SW1(PF4) is pushed and held
 // PF4 is negative logic,i.e 0 is on and non-zero is off
 #include "gpio.h"
+#include "tm4c123gh6pm.h"
 
 unsigned long Led;
 
